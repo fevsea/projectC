@@ -16,7 +16,7 @@ Name due to historic reasons. Not actually secret.
 
 ### Tech used
 
-- Django 1.11.2
+- D*j*ango 1.11.2
 - LiteSQL
 - Python 3.5
 - Bootstrap
@@ -36,3 +36,6 @@ Name due to historic reasons. Not actually secret.
 - `django-admin makemessages -a`   Collect translatable strings
 - Translate .po files (_projectC/locale/XX/LC_MESSAGES/*.po_)
 - `django-admin compilemessages`  #-> Generate .po files 
+
+## About
+Website initial backbone template: [Start-bootstrap Modern Business](https://startbootstrap.com/template-overviews/modern-business/)

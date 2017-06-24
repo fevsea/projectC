@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"Report-Msgid-Bugs-To: alejandro.a.es@ieee.org\n"
-"POT-Creation-Date: 2017-06-24 15:37+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-24 17:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alejandro Agustin alejandro.a.es@ieee.org\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: projectC/settings.py:127
+#: projectC/settings.py:128
 msgid "Spanish"
 msgstr "Español"
 
-#: projectC/settings.py:128
+#: projectC/settings.py:129
 msgid "English"
 msgstr "Inglés"
+
+#: projects/apps.py:7
+msgctxt "app name (ie admin page)"
+msgid "projects"
+msgstr "proyectos"
+
+#: projects/templates/projects/index.html:8
+msgid "This is the title."
+msgstr "Este es el título"
+
+#: projects/templates/projects/tests.html:13
+msgctxt "Main test page"
+msgid "Still works:"
+msgstr "Todabía funciona"
+
+#: projects/templates/projects/tests.html:18
+#, python-format
+msgid "This is a URL: %(the_url)s"
+msgstr "Esto es una URL: %(the_url)s"
+
+#: projects/views.py:25
+msgid "tests"
+msgstr "pruevas"

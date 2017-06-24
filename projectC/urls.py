@@ -19,7 +19,10 @@ from django.contrib import admin
 
 urlpatterns = [url(r'^i18n/', include('django.conf.urls.i18n')), ]  # Language redirect
 
+
 urlpatterns += i18n_patterns(
     url(r'^admin/', admin.site.urls),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^projects/', include('projects.urls')),
 )
+
