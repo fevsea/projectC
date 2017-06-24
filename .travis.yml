@@ -1,0 +1,21 @@
+language: python
+python:
+  - "3.5"
+
+env:
+  - DJANGO_VERSION=1.11.2
+
+before_install:
+  - export DJANGO_SETTINGS_MODULE=mysite.settings
+  - export PYTHONPATH=$HOME/builds/fevsea/projectC
+  - export PIP_USE_MIRRORS=true
+
+install:
+  - pip install django==$DJANGO_VERSION
+  - cp mysite/secrets.py.template mysite/secrets.py
+  - python manage.py makemigrations
+  - python manage.py migrate
+
+script:
+  - python manage.py test -v 2
+
