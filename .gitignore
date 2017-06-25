@@ -1,6 +1,7 @@
 #Project specific
 secrets.py
 db.sqlite3
+media/
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Example user template template

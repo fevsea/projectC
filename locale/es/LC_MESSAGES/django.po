@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-24 17:56+0200\n"
+"POT-Creation-Date: 2017-06-25 20:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alejandro Agustin alejandro.a.es@ieee.org\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: noDjango/custom/base.html:122 projects/templates/projects/base.html:136
+msgid "Work in progress - \"IEEE BCN SB 2017\""
+msgstr ""
 
 #: projectC/settings.py:128
 msgid "Spanish"
@@ -31,20 +35,26 @@ msgctxt "app name (ie admin page)"
 msgid "projects"
 msgstr "proyectos"
 
-#: projects/templates/projects/index.html:8
-msgid "This is the title."
-msgstr "Este es el título"
+#: projects/templates/projects/index.html:5
+#, fuzzy
+#| msgctxt "app name (ie admin page)"
+#| msgid "projects"
+msgid "Projects"
+msgstr "proyectos"
 
-#: projects/templates/projects/tests.html:13
+#: projects/templates/projects/tests.html:7
 msgctxt "Main test page"
 msgid "Still works:"
 msgstr "Todabía funciona"
 
-#: projects/templates/projects/tests.html:18
+#: projects/templates/projects/tests.html:11
 #, python-format
 msgid "This is a URL: %(the_url)s"
 msgstr "Esto es una URL: %(the_url)s"
 
-#: projects/views.py:25
+#: projects/views.py:34
 msgid "tests"
 msgstr "pruevas"
+
+#~ msgid "This is the title."
+#~ msgstr "Este es el título"

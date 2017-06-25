@@ -1,0 +1,15 @@
+body {
+    padding-top: 700px;
+    /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
+a.navbar-brand {
+  font-family: 'Audiowide', cursive;
+}
+
+.navbar-brand > img {
+    height: 38px;
+    margin-top: -9px;
+}

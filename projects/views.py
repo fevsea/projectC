@@ -1,20 +1,41 @@
 from django.shortcuts import render
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.http import Http404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-# Create your views here.
+from django.views import generic
+from projects.models import Project
 
-def index(request):
+
+def IndexView(request, page):
     """
        Main page of app
 
        **Template:**
 
-       :template:`projects/base.html`
-       """
+       :template:`projects/index.html`
+    """
+    project_list = Project.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')
+    paginator = Paginator(project_list, 2)
 
-    return render(request, 'projects/base.html')
+    pass
+
+    try:
+        projects = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        projects = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        projects = paginator.page(paginator.num_pages)
+
+    return render(request, 'projects/index.html', {'projects': projects})
+
+
 
 def tests(request):
     """

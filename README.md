@@ -37,5 +37,11 @@ Name due to historic reasons. Not actually secret.
 - Translate .po files (_projectC/locale/XX/LC_MESSAGES/*.po_)
 - `django-admin compilemessages`  #-> Generate .po files 
 
+## Dependencies
+
+- pillow
+
 ## About
-Website initial backbone template: [Start-bootstrap Modern Business](https://startbootstrap.com/template-overviews/modern-business/)
+Project: IEEE BCN SB
+
+Software development: LinuxUPC
