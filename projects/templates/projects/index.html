@@ -18,22 +18,26 @@
         </div>
     </div>
     <!-- /.row -->
+    <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">Projects</li>
+    </ol>
 
 {% for project in projects %}
     {% if not forloop.counter|divisibleby:"2"  %}
             <!-- Projects Row -->
             <div class="row">
     {% endif %}
-
+        {% url 'projects:detail' project.pk as url%}
             <div class="col-md-6 img-portfolio">
                 <div class="well">
-                <a href="portfolio-item.html">
+                <a href="{{ url }}">
                     <img class="img-responsive img-hover " src="{{ project.thumbnail.url }}" alt="">
                 </a>
                 <h3>
-                    <a href="portfolio-item.html">{{ project.title }}</a>
+                    <a href="{{ url }}">{{ project.title }}</a>
                 </h3>
-                <p>{{ project.brief_description }}</p>
+                <p>{{ project.summary }}</p>
 
                 </div>
             </div>

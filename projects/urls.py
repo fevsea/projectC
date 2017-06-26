@@ -13,7 +13,7 @@ urlpatterns = [
     #url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     # ex: /projects/tests
     url(r'^tests/$', views.tests, name='tests'),
-    url(r'^tests/$', views.tests, name='detail'),
+    url(r'^detail/(?P<pk>[0-9]+)/$', views.DetailView.as_view() , name='detail'),
 ]
 
 {'foo': 'bar'}

@@ -11,6 +11,8 @@ All kind of documentation, coments etc. are only for personal reference
 
 Name due to historic reasons. Not actually secret.
 
+# TODO
+- Extract breadcrumb
 
 ## Development
 
@@ -23,7 +25,6 @@ Name due to historic reasons. Not actually secret.
 
 ### Considerations
 - Multilanguage (always mark string translatable)
-- TDD (Every change should be driven by a test)
 - Responsive design
 
 ### Usefull commands

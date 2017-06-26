@@ -18,8 +18,8 @@ def IndexView(request, page):
        :template:`projects/index.html`
     """
     project_list = Project.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')
+        update_date__lte=timezone.now()
+        ).order_by('-update_date')
     paginator = Paginator(project_list, 2)
 
     pass
@@ -34,6 +34,19 @@ def IndexView(request, page):
         projects = paginator.page(paginator.num_pages)
 
     return render(request, 'projects/index.html', {'projects': projects})
+
+
+class DetailView(generic.DetailView):
+    """
+       Detalled view of a :model:`projects.Project`.
+
+
+       **Template:**
+
+       :template:`project/detail.html`
+       """
+    model = Project
+    template_name = 'projects/detail.html'
 
 
 

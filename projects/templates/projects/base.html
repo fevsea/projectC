@@ -22,9 +22,6 @@
     <!-- Custom CSS -->
      <link href="{% static "css/base.css" %}" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="{% static "font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -62,8 +59,9 @@
                     <li {% if request.path == url %} class="active" {% endif %}>
                         <a href="{{ url }}">Tests</a>
                     </li>
-                    <li>
-                        <a href="#">Contact</a>
+                    {% url 'projects:detail' as url %}
+                    <li {% if request.path == url %} class="active" {% endif %}>
+                        <a href="{{ url }}">Detail</a>
                     </li>
                 </ul>
             </div>
@@ -153,6 +151,19 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    <!-- Responsive tabs -->
+    <script src="{% static "js/responsive-tabs.js" %}"></script>
+
+    <!-- Custom js -->
+    <script src="{% static "js/base.js" %}"></script>
+
+    <script type="text/javascript">
+      (function($) {
+          fakewaffle.responsiveTabs(['xs', 'sm']);
+      })(jQuery);
+    </script>
+
 
 </body>
 

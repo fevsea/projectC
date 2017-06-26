@@ -1,19 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Question #{{ question.id }}</title>
-</head>
-<body>
-<h1>{{ question.question_text }}</h1>
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"/>
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br/>
-    {% endfor %}
-    <input type="submit" value="Vote"/>
-</form>
-</body>
-</html>
+{% extends 'projects/base.html' %}
+{% load i18n %}
+{% load humanize %}
+
+{% block title %}
+    {{ "Projects" }} | {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ project.title }}
+                <small>Project</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+
+
+<ul class="nav nav-tabs responsive" id="myTab">
+  <li class="active"><a href="#home">Information</a></li>
+  <li><a href="#instructions">Instructions</a></li>
+</ul>
+
+<div class="tab-content responsive">
+  <div class="tab-pane active" id="home">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Description</h3>
+      </div>
+      <div class="panel-body">
+        {{ project.description }}
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Details</h3>
+      </div>
+      <div class="panel-body">
+        {{ project.details }}
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-pane" id="instructions">
+
+      <!-- List group -->
+      <ul class="list-group">
+          {% for steep in project.buildsteep_set.all %}
+        <li class="list-group-item">{{ steep.content }}</li>
+          {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock content %}
