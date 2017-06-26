@@ -71,3 +71,15 @@ def tests(request):
         "float": 123123.230
     }
     return render(request, 'projects/tests.html', c)
+
+def create(request):
+    """
+       View for create new project
+
+
+       **Template:**
+
+       :template:`projects/create.html`
+       """
+
+    return render(request, 'projects/create.html')

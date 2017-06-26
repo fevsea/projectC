@@ -1,0 +1,32 @@
+{% extends 'projects/base.html' %}
+{% load i18n %}
+{% load humanize %}
+
+{% block title %}
+    {{ "Projects" }} | {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Create
+                <small>Project</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <ol class="breadcrumb">
+        <li><a href="{% url 'root' %}">Home</a></li>
+        <li class="active">Create</li>
+    </ol>
+
+<hr>
+
+{% lorem 5 p %}
+
+<hr>
+
+{% endblock content %}

@@ -9,6 +9,10 @@ a.navbar-brand {
   font-family: 'Audiowide', cursive;
 }
 
+#bs-example-navbar-collapse-1 a {
+    font-size: 140%;
+}
+
 .navbar-brand > img {
     height: 38px;
     margin-top: -9px;

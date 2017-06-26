@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 
+from projects import views
 from projectC import settings
 from django.conf.urls.static import static
 
@@ -24,6 +25,7 @@ urlpatterns = [url(r'^i18n/', include('django.conf.urls.i18n')), ]  # Language r
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
+    url(r'^$', views.IndexView, {'page': 1}, name='root'),
     url(r'^admin/', admin.site.urls),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^projects/', include('projects.urls')),

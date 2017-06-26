@@ -45,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'root' %}">
                 <img alt="Brand" src="{% static "img/logo.svg" %}"></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -59,9 +59,9 @@
                     <li {% if request.path == url %} class="active" {% endif %}>
                         <a href="{{ url }}">Tests</a>
                     </li>
-                    {% url 'projects:detail' as url %}
+                    {% url 'projects:create' as url %}
                     <li {% if request.path == url %} class="active" {% endif %}>
-                        <a href="{{ url }}">Detail</a>
+                        <a href="{{ url }}">Create</a>
                     </li>
                 </ul>
             </div>
