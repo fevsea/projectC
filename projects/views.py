@@ -14,7 +14,7 @@ from projects.forms import NameForm
 from projects.models import Project
 
 
-def IndexView(request, page):
+def IndexView(request, page=1):
     """
        Main page of app
 
@@ -77,7 +77,7 @@ def tests(request):
     }
     return render(request, 'projects/tests.html', c)
 
-def create(request):
+def edit(request, pk=None):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -85,50 +85,38 @@ def create(request):
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
-            p = Project(title=form.cleaned_data['title'],
-                        summary=form.cleaned_data['summary'],
-                        description=form.cleaned_data['description'],
-                        details=form.cleaned_data['details'],
-                        thumbnail=form.cleaned_data['thumbnail'] )
+            p = None
+            if pk is None:
+                p = Project(title=form.cleaned_data['title'],
+                            summary=form.cleaned_data['summary'],
+                            description=form.cleaned_data['description'],
+                            details=form.cleaned_data['details'],
+                            thumbnail=form.cleaned_data['thumbnail'])
+            else:
+
+                p = get_object_or_404(Project, pk=pk)
+                p.title=form.cleaned_data['title']
+                p.summary=form.cleaned_data['summary']
+                p.description=form.cleaned_data['description']
+                p.details=form.cleaned_data['details']
+                #thumbnail=form.cleaned_data['thumbnail']
+
             p.save()
             # redirect to a new URL:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse("projects:detail", kwargs={'pk': p.pk}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = NameForm()
-
-    return render(request, 'projects/create.html', {'form': form})
-
-def edit(request, pk):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST, request.FILES)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
+        if pk is not None:
             p = get_object_or_404(Project, pk=pk)
-            p.title=form.cleaned_data['title']
-            p.summary=form.cleaned_data['summary']
-            p.description=form.cleaned_data['description']
-            p.details=form.cleaned_data['details']
-            #thumbnail=form.cleaned_data['thumbnail']
-            p.save()
-            # redirect to a new URL:
-            return HttpResponseRedirect('/')
+            data = {'title': p.title,
+                    'summary': p.summary,
+                    'description': p.description,
+                    'details': p.details,
+                    #'thumbnail': p.thumbnail
+                    }
+            form = NameForm(data)
+        else:
+            form = NameForm
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        p = get_object_or_404(Project, pk=pk)
-        data = {'title': p.title,
-                'summary': p.summary,
-                'description': p.description,
-                'details': p.details,
-                #'thumbnail': p.thumbnail
-                }
-        form = NameForm(data)
-
-    return render(request, 'projects/create.html', {'form': form})
+    return render(request, 'projects/edit.html', {'form': form, 'pk':pk})
