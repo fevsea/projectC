@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from tinymce import models as tinymce_models
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -11,8 +12,8 @@ class Project(models.Model):
 
     title = models.CharField(verbose_name=_('title'), max_length=60, help_text=_("Title used for listing"))
     summary = models.CharField(_('brief description'),  max_length=140, help_text=_("Very short descrition. Will appear on project listing."))
-    description = models.TextField(_('description'),  help_text=_("Desciption of the project (not actually explanation)"))
-    details = models.TextField(_('details'),  help_text=_("Full explanation of the project)"))
+    description = tinymce_models.HTMLField(_('description'),  help_text=_("Desciption of the project (not actually explanation)"))
+    details = tinymce_models.HTMLField(_('details'),  help_text=_("Full explanation of the project)"))
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     update_date = models.DateTimeField(_('last update date'), auto_now=True )
     thumbnail = models.ImageField(upload_to='projects/thumbnail/')
@@ -34,7 +35,7 @@ class BuildSteep(models.Model):
     project = models.ForeignKey('Project',
         on_delete=models.CASCADE,
     )
-    content = models.TextField(_('steep content'), help_text=_("Explanation of one individual step on the elavoration fo the project"))
+    content = tinymce_models.HTMLField(_('steep content'), help_text=_("Explanation of one individual step on the elavoration fo the project"))
     number = models.IntegerField(_("position on steep list"))
 
 

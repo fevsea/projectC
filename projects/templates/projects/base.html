@@ -19,8 +19,13 @@
     <!-- BootstraCore CSS -->
     <link href="{% static "css/bootstrap.min.css/" %}" rel="stylesheet">
 
+    <!-- Code hihglight CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/prism.css/" %}">
+
+
     <!-- Custom CSS -->
      <link href="{% static "css/base.css" %}" rel="stylesheet">
+    {% block extraHeader %} {% endblock %}
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -155,8 +160,13 @@
     <!-- Responsive tabs -->
     <script src="{% static "js/responsive-tabs.js" %}"></script>
 
+    <!-- Code highlight -->
+    <script src="{% static "js/prism.js" %}"></script>
+
     <!-- Custom js -->
     <script src="{% static "js/base.js" %}"></script>
+
+
 
     <script type="text/javascript">
       (function($) {
@@ -168,3 +178,4 @@
 </body>
 
 </html>
+

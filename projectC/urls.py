@@ -21,7 +21,8 @@ from projects import views
 from projectC import settings
 from django.conf.urls.static import static
 
-urlpatterns = [url(r'^i18n/', include('django.conf.urls.i18n')), ]  # Language redirect
+urlpatterns = [url(r'^i18n/', include('django.conf.urls.i18n')),
+               url(r'^tinymce/', include('tinymce.urls')),]  # Language redirect
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
