@@ -7,11 +7,12 @@ from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Max
 
 from django.views import generic
 
-from projects.forms import NameForm
-from projects.models import Project
+from projects.forms import ProjectForm, SteepForm
+from projects.models import Project, BuildSteep
 
 
 def IndexView(request, page=1):
@@ -81,7 +82,7 @@ def edit(request, pk=None):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST, request.FILES)
+        form = ProjectForm(request.POST, request.FILES)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
@@ -115,8 +116,46 @@ def edit(request, pk=None):
                     'details': p.details,
                     #'thumbnail': p.thumbnail
                     }
-            form = NameForm(data)
+            form = ProjectForm(data)
         else:
-            form = NameForm
+            form = ProjectForm
 
-    return render(request, 'projects/edit.html', {'form': form, 'pk':pk})
+    return render(request, 'projects/editProject.html', {'form': form, 'pk':pk})
+
+
+def editSteep(request, pk, steep=None):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = SteepForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            p = get_object_or_404(Project, pk=pk)
+            if steep is None:
+                pos = p.buildsteep_set.aggregate(Max('number'))['number__max']
+                pos = pos if pos is not None else 0
+                s = BuildSteep(project=p,
+                            content=form.cleaned_data['content'],
+                               number=pos+1
+                            )
+            else:
+                s = p.buildsteep_set.get(pk=steep)
+                s.content = form.cleaned_data['content']
+
+            s.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse("projects:detail", kwargs={'pk': p.pk}))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        if steep is not None:
+            p = get_object_or_404(Project, pk=pk)
+
+            data = {'content': p.buildsteep_set.get(pk=steep).content}
+            form = SteepForm(data)
+        else:
+            form = SteepForm
+
+    return render(request, 'projects/editProject.html', {'form': form, 'pk':pk})
