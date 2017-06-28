@@ -158,4 +158,4 @@ def editSteep(request, pk, steep=None):
         else:
             form = SteepForm
 
-    return render(request, 'projects/editProject.html', {'form': form, 'pk':pk})
+    return render(request, 'projects/editSteep.html', {'form': form, 'pk':pk})
