@@ -33,14 +33,14 @@
     {% csrf_token %}
     {% for field in form %}
     <div class="fieldWrapper">
+      <h3>{{ field.label_tag }}</h3>
       {% if field.errors %}
         <div class="alert alert-warning" role="alert">{{ field.errors }}</div>
       {% endif %}
-        <h4>{{ field.label_tag }}</h4>
         {{ field }}
     </div>
 {% endfor %}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Save" class="btn btn-default btn-lg submit" />
 </form>
 
 <hr>

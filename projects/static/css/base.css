@@ -32,6 +32,29 @@ a.btn-default {
     padding-top: 20px;
 }
 
+.panel-body {
+    margin: 15px 10px 20px 10px;
+}
+
+.badge {
+    margin-left: 5px;
+}
+
+
+/* Forms */
+
+label {
+    margin-top: 25px;
+}
+
+/* Submmit button */
+.submit {
+    margin-top: 35px;
+}
+
+
+
+
  /* Footer */
 
 footer {

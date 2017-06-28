@@ -151,12 +151,13 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme': "modern",
     'plugins': [
         'advlist autolink lists link image charmap preview hr anchor pagebreak',
-        'searchreplace wordcount visualblocks visualchars code fullscreen',
-        'insertdatetime media nonbreaking save table contextmenu directionality',
+        'searchreplace visualblocks visualchars code fullscreen',
+        'insertdatetime nonbreaking table directionality',
         'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
     ],
     'toolbar': 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | codesample preview emoticon',
     'menubar': False,
+    'statusbar': True,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 10,
 }

@@ -32,13 +32,13 @@
     <form enctype="multipart/form-data" action="{{ request.path }}" method="post">
     {% csrf_token %}
     <div class="fieldWrapper">
-        <label for="{{ form.content.id_for_label }}">Steep explanation</label>
+        <h3>{{ form.content.label_tag }}</h3>
         {% if form.content.errors %}
             <div class="alert alert-warning" role="alert">{{ form.content.errors }}</div>
         {% endif %}
           {{ form.content }}
     </div>
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Save" class="btn btn-default btn-lg submit" />
 </form>
 
 <hr>
