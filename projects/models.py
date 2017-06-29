@@ -45,3 +45,26 @@ class BuildSteep(models.Model):
     class Meta:
         verbose_name = _('project steep')
         verbose_name_plural = _('project steeps')
+
+class Organization(models.Model):
+    """
+        An organization hav projects. Pex. and IEEE student branch
+    """
+
+    name = models.CharField(verbose_name=_('name'), max_length=128)
+    university = models.CharField(max_length=64,)
+    ieee = models.BooleanField()
+    website = models.CharField(blank=True, max_length=256)
+    facebook = models.CharField(blank=True, max_length=128)
+    twitter = models.CharField(blank=True, max_length=128)
+    creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
+    update_date = models.DateTimeField(_('last update date'), auto_now=True )
+    logo = models.ImageField(upload_to='projects/organization/')
+
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('organization')
+        verbose_name_plural = _('organizations')

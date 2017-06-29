@@ -1,0 +1,54 @@
+{% extends 'projects/base.html' %}
+{% load i18n %}
+{% load humanize %}
+
+{% block title %}
+    {{ "Projects" }} | {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+
+
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Organizations
+                <small>All</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <ol class="breadcrumb">
+        <li><a href="{% url 'root' %}">Home</a></li>
+        <li class="active">Organizations</li>
+    </ol>
+
+{% for organization in organizations %}
+    {% if not forloop.counter0|divisibleby:"3"  %}
+            <!-- Projects Row -->
+            <div class="row">
+    {% endif %}
+        {% url 'projects:organization' project.pk as url%}
+            <div class="col-md-4 img-portfolio">
+                <div class="well">
+                <a href="{{ url }}">
+                    <img class="img-responsive img-hover " src="{{ organization.logo.url }}" alt="">
+                </a>
+                <h3>
+                    <a href="{{ url }}">{{ organization.university }}</a>
+                </h3>
+                <p>{{ organization.name }}</p>
+
+                </div>
+            </div>
+
+    {% if forloop.counter|divisibleby:"3" or forloop.last %}
+            </div>
+    {% endif %}
+{% empty %}
+    <h2>No organizations listed.</h2>
+{% endfor %}
+
+<hr>
+
+{% endblock content %}

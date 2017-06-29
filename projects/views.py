@@ -12,7 +12,7 @@ from django.db.models import Max
 from django.views import generic
 
 from projects.forms import ProjectForm, SteepForm
-from projects.models import Project, BuildSteep
+from projects.models import Project, BuildSteep, Organization
 
 
 def IndexView(request, page=1):
@@ -55,6 +55,17 @@ class DetailView(generic.DetailView):
     template_name = 'projects/detail.html'
 
 
+def Organizations(request, page=1):
+    """
+       Main page of app
+
+       **Template:**
+
+       :template:`projects/index.html`
+    """
+    organizations = Organization.objects.all().order_by('name')
+
+    return render(request, 'projects/organizations.html', {'organizations': organizations})
 
 def tests(request):
     """
@@ -92,7 +103,7 @@ def edit(request, pk=None):
                             summary=form.cleaned_data['summary'],
                             description=form.cleaned_data['description'],
                             details=form.cleaned_data['details'],
-                            thumbnail=form.cleaned_data['thumbnail'])
+                            thumbnail="projects/thumbnail/default.png")
             else:
 
                 p = get_object_or_404(Project, pk=pk)

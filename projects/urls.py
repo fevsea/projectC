@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^$', views.IndexView, name='index'),
     # ex: /projects/page/2
     url(r'^page/(?P<page>[0-9]+)/$', views.IndexView, name='indexI'),
+    # ex: /projects/organization
+    url(r'^organizations/$', views.Organizations, name='organizations'),
     # ex: /projects/detail/1/
     url(r'^detail/(?P<pk>[0-9]+)/$', views.DetailView.as_view() , name='detail'),
     # ex: /projects/detail/1/edit/
