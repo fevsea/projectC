@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from projects.models import Project, BuildSteep, Organization
+from projects.models import Project, BuildSteep, Organization, BlogEntry, Resource
 
 
 class ChoiceInline(admin.TabularInline):
@@ -20,6 +20,9 @@ class ProjectAdmin(admin.ModelAdmin):
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Organization)
+admin.site.register(BlogEntry)
+admin.site.register(BuildSteep)
+admin.site.register(Resource)
 
 admin.site.site_header = _('ProjectC administration')
 admin.site.site_title = _('ProjectC admin site')

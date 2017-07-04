@@ -42,18 +42,14 @@ def IndexView(request, page=1):
     return render(request, 'projects/index.html', {'projects': projects})
 
 
-class DetailView(generic.DetailView):
-    """
-       Detalled view of a :model:`projects.Project`.
+def DetailView(request, pk, tab='detail'):
 
+    if not tab in ['detail', 'instructions', 'blog']:
+        raise Http404
+    p = get_object_or_404(Project, pk=pk)
 
-       **Template:**
-
-       :template:`project/detail.html`
-       """
-    model = Project
-    template_name = 'projects/detail.html'
-
+    c = {'project': p, 'tab': tab}
+    return render(request, 'projects/projectView.html', c)
 
 def Organizations(request, page=1):
     """
@@ -103,7 +99,7 @@ def edit(request, pk=None):
                             summary=form.cleaned_data['summary'],
                             description=form.cleaned_data['description'],
                             details=form.cleaned_data['details'],
-                            thumbnail="projects/thumbnail/default.png")
+                            )
             else:
 
                 p = get_object_or_404(Project, pk=pk)
@@ -111,7 +107,6 @@ def edit(request, pk=None):
                 p.summary=form.cleaned_data['summary']
                 p.description=form.cleaned_data['description']
                 p.details=form.cleaned_data['details']
-                #thumbnail=form.cleaned_data['thumbnail']
 
             p.save()
             # redirect to a new URL:
@@ -125,7 +120,6 @@ def edit(request, pk=None):
                     'summary': p.summary,
                     'description': p.description,
                     'details': p.details,
-                    #'thumbnail': p.thumbnail
                     }
             form = ProjectForm(data)
         else:

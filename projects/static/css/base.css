@@ -40,6 +40,9 @@ a.btn-default {
     margin-left: 5px;
 }
 
+.space-arround {
+    margin: 10px 5px 20px 20px;
+}
 
 /* Forms */
 
@@ -52,7 +55,28 @@ label {
     margin-top: 35px;
 }
 
+.image-resource {
+    margin-bottom: 30px;
+}
 
+/* Image display */
+
+.ekko-lightbox-nav-overlay span {
+    color: gray;
+}
+
+.thumbnail {
+    margin-bottom:6px;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+}
 
 
  /* Footer */
@@ -74,3 +98,7 @@ footer .footer-below {
     background-color: #069;
     margin-bottom: 0;
 }
+
+
+/* TESTS */
+

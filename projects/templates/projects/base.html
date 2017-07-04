@@ -22,6 +22,9 @@
     <!-- Code hihglight CSS -->
     <link rel="stylesheet" type="text/css" href="{% static "css/prism.css/" %}">
 
+    <!-- Bootstrap lightbox CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/ekko-lightbox.min.css" %}">
+
 
     <!-- Custom CSS -->
      <link href="{% static "css/base.css" %}" rel="stylesheet">
@@ -60,9 +63,9 @@
                     <li {% if request.path == url %} class="active" {% endif %}>
                         <a href="{{ url }}">Projects</a>
                     </li>
-                    {% url 'projects:tests' as url %}
+                    {% url 'projects:organizations' as url %}
                     <li {% if request.path == url %} class="active" {% endif %}>
-                        <a href="{{ url }}">Tests</a>
+                        <a href="{{ url }}">Organizaitons</a>
                     </li>
                     {% url 'projects:create' as url %}
                     <li {% if request.path == url %} class="active" {% endif %}>
@@ -157,22 +160,16 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static "js/bootstrap.min.js" %}"></script>
 
-    <!-- Responsive tabs -->
-    <script src="{% static "js/responsive-tabs.js" %}"></script>
-
     <!-- Code highlight -->
     <script src="{% static "js/prism.js" %}"></script>
+
+    <!-- Bootstrap lightbox -->
+    <script src="{% static "js/ekko-lightbox.min.js" %}"></script>
 
     <!-- Custom js -->
     <script src="{% static "js/base.js" %}"></script>
 
 
-
-    <script type="text/javascript">
-      (function($) {
-          fakewaffle.responsiveTabs(['xs', 'sm']);
-      })(jQuery);
-    </script>
 
 
 </body>

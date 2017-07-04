@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'tinymce',
+    'django_cleanup',
 ]
 
 SITE_ID = 1
