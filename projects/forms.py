@@ -29,5 +29,10 @@ class ResourceForm(forms.Form):
 
 
     name = forms.CharField()
-    type = forms.CharField(val)
+    type = forms.CharField()
     file = forms.FileField()
+
+class BlogForm(forms.Form):
+    title = forms.CharField(max_length=128, required=False)
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 40}))
+    pub_date = forms.DateTimeInput()

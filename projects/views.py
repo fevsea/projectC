@@ -11,7 +11,7 @@ from django.db.models import Max
 
 from django.views import generic
 
-from projects.forms import ProjectForm, SteepForm
+from projects.forms import ProjectForm, SteepForm, BlogForm
 from projects.models import Project, BuildSteep, Organization
 
 
@@ -164,3 +164,44 @@ def editSteep(request, pk, steep=None):
             form = SteepForm
 
     return render(request, 'projects/editSteep.html', {'form': form, 'pk':pk})
+
+def editBlog(request, pk, entry=None):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = BlogForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            p = get_object_or_404(Project, pk=pk)
+            if entry is None:
+                pos = p.buildsteep_set.aggregate(Max('number'))['number__max']
+                pos = pos if pos is not None else 0
+                s = BuildSteep(project=p,
+                            content=form.cleaned_data['content'],
+                               number=pos+1
+                            )
+            else:
+                s = p.blogentry_set.get(pk=entry)
+                s.content = form.cleaned_data['content']
+                s.title = form.cleaned_data['title']
+                s.pub_date = form.cleaned_data['pub_date']
+                if s.pub_date is None:
+                    s.pub_date = timezone.now()
+
+            s.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse("projects:blog", kwargs={'pk': p.pk}))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        if entry is not None:
+            p = get_object_or_404(Project, pk=pk)
+
+            data = {'content': p.blogentry_set.get(pk=entry).content}
+            form = BlogForm(data)
+        else:
+            form = BlogForm
+
+    return render(request, 'projects/editBlog.html', {'form': form, 'pk':pk})
