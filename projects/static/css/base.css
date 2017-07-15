@@ -33,7 +33,7 @@ a.btn-default {
 }
 
 .panel-body {
-    margin: 15px 10px 20px 10px;
+    margin: 15px 10px 5px 10px;
 }
 
 .badge {
@@ -66,9 +66,8 @@ label {
 }
 
 .thumbnail {
-    margin-bottom:6px;
     padding: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     line-height: 1.42857143;
     background-color: #fff;
     border: 1px solid #ddd;

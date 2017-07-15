@@ -187,8 +187,15 @@ class BlogEntry(models.Model):
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     pub_date = models.DateTimeField(default=now)
 
+
+    def __str__(self):
+        if self.title is None or self.title == "":
+            return str(self.pub_date)
+        return self.title
+
     class Meta:
         verbose_name = _('blog entry')
         verbose_name_plural = _('blog entries')
+
 
 

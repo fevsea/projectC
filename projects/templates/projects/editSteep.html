@@ -32,11 +32,25 @@
     <form enctype="multipart/form-data" action="{{ request.path }}" method="post">
     {% csrf_token %}
     <div class="fieldWrapper">
+      <h3>{{ form.title.label_tag }}</h3>
+      {% if form.title.errors %}
+        <div class="alert alert-warning" role="alert">{{ form.title.errors }}</div>
+      {% endif %}
+      {{ form.title }}
+    </div>
+    <div class="fieldWrapper">
         <h3>{{ form.content.label_tag }}</h3>
         {% if form.content.errors %}
             <div class="alert alert-warning" role="alert">{{ form.content.errors }}</div>
         {% endif %}
           {{ form.content }}
+    </div>
+    <div class="fieldWrapper">
+        <h3>{{ form.filese.label_tag }}</h3>
+        {% if form.files.errors %}
+            <div class="alert alert-warning" role="alert">{{ form.files.errors }}</div>
+        {% endif %}
+          {{ form.files }}
     </div>
     <input type="submit" value="Save" class="btn btn-default btn-lg submit" />
 </form>

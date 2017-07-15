@@ -10,11 +10,13 @@ class ProjectForm(forms.Form):
     summary = forms.CharField(max_length=140);
     description =  forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 40}))
     details = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 60}), required=False)
-    #thumbnail = forms.ImageField()
+    thumbnail = forms.ImageField()
 
 
 class SteepForm(forms.Form):
+    title = forms.CharField(max_length=64, required=False)
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 40}))
+    files = forms.formset_factory(forms.FileInput)
     
 class ResourceForm(forms.Form):
     FILE_TYPE = (
@@ -27,5 +29,5 @@ class ResourceForm(forms.Form):
 
 
     name = forms.CharField()
-    type = forms.CharField()
+    type = forms.CharField(val)
     file = forms.FileField()
