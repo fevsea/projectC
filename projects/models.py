@@ -182,10 +182,14 @@ class BlogEntry(models.Model):
     """
 
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
-    title = models.CharField(verbose_name=_('title'), max_length=128, blank=True, null=True)
+    title = models.CharField(verbose_name=_('title'), max_length=128)
     content = tinymce_models.HTMLField(_('blog entry content'))
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     pub_date = models.DateTimeField(default=now)
+
+    @property
+    def is_after_publish_date(self):
+        return self.pub_date <= now()
 
 
     def __str__(self):
@@ -196,6 +200,7 @@ class BlogEntry(models.Model):
     class Meta:
         verbose_name = _('blog entry')
         verbose_name_plural = _('blog entries')
+
 
 
 

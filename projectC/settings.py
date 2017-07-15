@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'tinymce',
     'django_cleanup',
+    'datetimewidget',
 ]
 
 SITE_ID = 1
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'projectC.urls'

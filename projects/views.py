@@ -12,7 +12,7 @@ from django.db.models import Max
 from django.views import generic
 
 from projects.forms import ProjectForm, SteepForm, BlogForm
-from projects.models import Project, BuildSteep, Organization
+from projects.models import Project, BuildSteep, Organization, BlogEntry
 
 
 def IndexView(request, page=1):
@@ -137,6 +137,7 @@ def editSteep(request, pk, steep=None):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             p = get_object_or_404(Project, pk=pk)
+            s = None
             if steep is None:
                 pos = p.buildsteep_set.aggregate(Max('number'))['number__max']
                 pos = pos if pos is not None else 0
@@ -174,20 +175,17 @@ def editBlog(request, pk, entry=None):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             p = get_object_or_404(Project, pk=pk)
+            s = None
             if entry is None:
-                pos = p.buildsteep_set.aggregate(Max('number'))['number__max']
-                pos = pos if pos is not None else 0
-                s = BuildSteep(project=p,
+                s = BlogEntry(project=p,
                             content=form.cleaned_data['content'],
-                               number=pos+1
+                            title=form.cleaned_data['title'],
                             )
             else:
                 s = p.blogentry_set.get(pk=entry)
                 s.content = form.cleaned_data['content']
                 s.title = form.cleaned_data['title']
-                s.pub_date = form.cleaned_data['pub_date']
-                if s.pub_date is None:
-                    s.pub_date = timezone.now()
+                #s.pub_date = form.cleaned_data['pub_date']
 
             s.save()
 
@@ -198,8 +196,9 @@ def editBlog(request, pk, entry=None):
     else:
         if entry is not None:
             p = get_object_or_404(Project, pk=pk)
+            e = p.blogentry_set.get(pk=entry)
 
-            data = {'content': p.blogentry_set.get(pk=entry).content}
+            data = {'content': e.content, 'title': e.title}
             form = BlogForm(data)
         else:
             form = BlogForm

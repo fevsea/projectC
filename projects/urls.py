@@ -15,10 +15,11 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView, {'tab':'detail'}, name='detail'),
     # ex: ~/1/instructions
     url(r'^(?P<pk>[0-9]+)/instructions/$', views.DetailView, {'tab':'instructions'}, name='instructions'),
+
     # ex: ~/1/blog
     url(r'^(?P<pk>[0-9]+)/blog/$', views.DetailView, {'tab': 'blog'}, name='blog'),
-    # ex: ~/1/blog
-    url(r'^(?P<pk>[0-9]+)/blog/$', views.DetailView, {'tab': 'blog'}, name='blog'),
+    # ex: ~/1/blog/create
+    url(r'^(?P<pk>[0-9]+)/blog/create/$', views.editBlog, name='addBlog'),
     # ex: ~/1/blog/edit/1
     url(r'^(?P<pk>[0-9]+)/blog/(?P<entry>[0-9]+)/edit/$', views.editBlog, name='editBlog'),
     # ex: ~/1/edit/

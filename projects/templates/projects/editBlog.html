@@ -45,6 +45,7 @@
         {% endif %}
           {{ form.content }}
     </div>
+    {% if form.pub_date %}
     <div class="fieldWrapper">
         <h3>{{ form.pub_date.label_tag }}</h3>
         {% if form.pub_date.errors %}
@@ -52,6 +53,7 @@
         {% endif %}
           {{ form.pub_date }}
     </div>
+    {% endif %}
     <input type="submit" value="Save" class="btn btn-default btn-lg submit" />
 </form>
 
