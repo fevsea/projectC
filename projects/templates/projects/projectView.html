@@ -118,47 +118,55 @@
         <div class="alert alert-info" role="alert"><p>No instructions. To add one click the "+" button above.</p></div>
     {% endfor %}
 
-
-    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <img src="" class="imagepreview" style="width: 100%;" >
-          </div>
-        </div>
-      </div>
-    </div>
-
 {% elif tab == 'blog' %}
 
-        <div class="no-auto-collapse">
+    <div id="blog">
+    <div class="no-auto-collapse">
       <a type="button" class="btn btn-default space-arround" aria-label="Left Align"
          href="{% url 'projects:addBlog' project.pk %}">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
       </a>
-    </div>
+      </div>
 
     {% for blogEntry in project.blogentry_set.all|dictsortreversed:"pub_date"  %}
       {% if blogEntry.is_after_publish_date %}
         <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">{{ blogEntry.title }}</h3> - {{ blogEntry.pub_date|date }} {{ blogEntry.pub_date|date:'G:i' }}
+            <h3 class="panel-title">{{ blogEntry.title }}</h3> <small>{{ blogEntry.pub_date|date }} {{ blogEntry.pub_date|date:'G:i' }}</small>
             <a type="button" class="btn btn-default"
                href="{% url 'projects:editBlog' project.pk blogEntry.pk %}">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-            </a></div>
-        <div class="panel-body">
-          {{ blogEntry.content|safe }}
+            </a>
+        </div>
+
+        <div class="panel-body no-collapse">
+        {% if blogEntry.image %}
+            <a class="pop col-md-6" href="{{ blogEntry.image.url }}" data-toggle="lightbox" data-gallery="{{ blogEntry.pk }}">
+               <img class="img-responsive image-resource thumbnail img-fluid" height="300px" src="{{ blogEntry.image.url }}" alt="">
+             </a>
+        {% endif %}
+
+        {{ blogEntry.content|safe }}
         </div>
         </div>
       {% endif %}
     {% empty %}
         <div class="alert alert-info" role="alert"><p>No blog posts. To add one click the "+" button above.</p></div>
     {% endfor %}
+    </div>
 
 
 {% endif %}
 
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}

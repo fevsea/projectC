@@ -95,8 +95,7 @@ class Resource(models.Model):
 
     project = models.ForeignKey('Project', on_delete=models.CASCADE )
 
-    buildSteep = models.ForeignKey('BuildSteep', on_delete=models.CASCADE, null=True, blank=True)
-    blogEntry = models.ForeignKey('BlogEntry', on_delete=models.CASCADE, null=True, blank=True)
+    buildSteep = models.ForeignKey('BuildSteep', on_delete=models.CASCADE)
 
 
     name = models.CharField(verbose_name=_('name'), max_length=64, blank=True, null=True)
@@ -113,59 +112,12 @@ class Resource(models.Model):
 
     def save(self, *args, **kwargs):
 
-        if self.type == 'IMG' and not self.make_thumbnail():
+        if self.type == 'IMG' and not generate_thumbnail(self.file, self.thumbnail, 500, 200, 2.5):
             # set to a default thumbnail
             raise Exception('Could not create thumbnail - is the file type valid?')
 
         super(Resource, self).save(*args, **kwargs)
 
-
-    def make_thumbnail(self):
-        image = Image.open(self.file)
-
-
-        thumb_name, thumb_extension = os.path.splitext(self.file.name)
-        thumb_extension = thumb_extension.lower()
-
-        thumb_filename = thumb_name + '_thumb' + thumb_extension
-
-        if thumb_extension in ['.jpg', '.jpeg']:
-            FTYPE = 'JPEG'
-        elif thumb_extension == '.gif':
-            FTYPE = 'GIF'
-        elif thumb_extension == '.png':
-            FTYPE = 'PNG'
-        else:
-            return False  # Unrecognized file type
-
-        # Crrop image at 10:25 ration
-        image.thumbnail((500, 200), Image.ANTIALIAS)
-        width = image.size[0] / 2
-        height = image.size[1] / 2
-        targetWidth = width
-        if 2.5*height < targetWidth:
-            targetWidth = 2.5 * height
-        targetHeight = targetWidth/2.5
-
-        image = image.crop(
-            (
-                int(round(width/2 - targetWidth/2)),
-                int(round(height/2 - targetHeight/2)),
-                int(round(width/2 + targetWidth/2)),
-                int(round(height/2 + targetHeight/2))
-            )
-        )
-
-        # Save thumbnail to in-memory file as StringIO
-        temp_thumb = BytesIO()
-        image.save(temp_thumb, FTYPE)
-        temp_thumb.seek(0)
-
-        # set save=False, otherwise it will run in an infinite loop
-        self.thumbnail.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
-        temp_thumb.close()
-
-        return True
 
 
     def __str__(self):
@@ -184,6 +136,7 @@ class BlogEntry(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE)
     title = models.CharField(verbose_name=_('title'), max_length=128)
     content = tinymce_models.HTMLField(_('blog entry content'))
+    image = models.ImageField(upload_to='projects/blog/', blank=True, null=True)
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     pub_date = models.DateTimeField(default=now)
 
@@ -204,3 +157,47 @@ class BlogEntry(models.Model):
 
 
 
+def generate_thumbnail(source, dest, x, y, ratio):
+    image = Image.open(source)
+    thumb_name, thumb_extension = os.path.splitext(source.name)
+    thumb_extension = thumb_extension.lower()
+
+    thumb_filename = thumb_name + '_thumb' + thumb_extension
+
+    if thumb_extension in ['.jpg', '.jpeg']:
+        FTYPE = 'JPEG'
+    elif thumb_extension == '.gif':
+        FTYPE = 'GIF'
+    elif thumb_extension == '.png':
+        FTYPE = 'PNG'
+    else:
+        return False  # Unrecognized file type
+
+    # Crrop image at 10:25 ration
+    image.thumbnail((x, y), Image.ANTIALIAS)
+    width = image.size[0] / 2
+    height = image.size[1] / 2
+    targetWidth = width
+    if ratio*height < targetWidth:
+        targetWidth = ratio * height
+    targetHeight = targetWidth/ratio
+
+    image = image.crop(
+        (
+            int(round(width/2 - targetWidth/2)),
+            int(round(height/2 - targetHeight/2)),
+            int(round(width/2 + targetWidth/2)),
+            int(round(height/2 + targetHeight/2))
+        )
+    )
+
+    # Save thumbnail to in-memory file as StringIO
+    temp_thumb = BytesIO()
+    image.save(temp_thumb, FTYPE)
+    temp_thumb.seek(0)
+
+    # set save=False, otherwise it will run in an infinite loop
+    dest.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
+    temp_thumb.close()
+
+    return True

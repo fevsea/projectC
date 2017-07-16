@@ -167,26 +167,31 @@ def editSteep(request, pk, steep=None):
     return render(request, 'projects/editSteep.html', {'form': form, 'pk':pk})
 
 def editBlog(request, pk, entry=None):
+    e=None
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = BlogForm(request.POST)
+        form = BlogForm(request.POST, request.FILES)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
             p = get_object_or_404(Project, pk=pk)
             s = None
             if entry is None:
+
                 s = BlogEntry(project=p,
                             content=form.cleaned_data['content'],
                             title=form.cleaned_data['title'],
+                            image=form.cleaned_data['image'],
                             )
             else:
                 s = p.blogentry_set.get(pk=entry)
                 s.content = form.cleaned_data['content']
                 s.title = form.cleaned_data['title']
-                #s.pub_date = form.cleaned_data['pub_date']
-
+                if form.cleaned_data['image'] is not None:
+                    s.image = form.cleaned_data['image']
+            if form.cleaned_data['clear']:
+                s.image = None
             s.save()
 
             # redirect to a new URL:
@@ -203,4 +208,4 @@ def editBlog(request, pk, entry=None):
         else:
             form = BlogForm
 
-    return render(request, 'projects/editBlog.html', {'form': form, 'pk':pk})
+    return render(request, 'projects/editBlog.html', {'form': form, 'pk':pk, 'image':e})
