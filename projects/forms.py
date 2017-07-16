@@ -36,4 +36,5 @@ class ResourceForm(forms.Form):
 class BlogForm(forms.Form):
     title = forms.CharField(max_length=128)
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 40}))
-    #pub_date = forms.DateTimeInput()
+    image = forms.ImageField(required=False)
+    clear = forms.BooleanField(required=False)

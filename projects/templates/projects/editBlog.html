@@ -45,15 +45,22 @@
         {% endif %}
           {{ form.content }}
     </div>
-    {% if form.pub_date %}
-    <div class="fieldWrapper">
-        <h3>{{ form.pub_date.label_tag }}</h3>
-        {% if form.pub_date.errors %}
-            <div class="alert alert-warning" role="alert">{{ form.pub_date.errors }}</div>
+    <div class="fieldWrapper row">
+        <h3>{{ form.image.label_tag }}</h3>
+        {% if form.image.errors %}
+            <div class="alert alert-warning" role="alert">{{ form.image.errors }}</div>
         {% endif %}
-          {{ form.pub_date }}
+        {% if form.clear.errors %}
+            <div class="alert alert-warning" role="alert">{{ form.image.errors }}</div>
+        {% endif %}
+         {% if e.image %}
+          <img class="col-sm-6 img-responsive image-resource thumbnail img-fluid" height="200px" src="{{ e.image.url }}" alt="">
+        {% endif %}
+        <div class="{{ image|yesno:"col-md-6,col-md-12" }}">
+          {{ form.image }}
+          {{ form.clear }} <p>Clear</p>
+        </div>
     </div>
-    {% endif %}
     <input type="submit" value="Save" class="btn btn-default btn-lg submit" />
 </form>
 

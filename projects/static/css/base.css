@@ -35,7 +35,10 @@ div.panel-heading > a.btn-default {
 
 .panel-heading > h3 {
     display: inline;
+    margin-right: 15px;
 }
+
+
 
 .tab-pane {
     padding-top: 20px;
@@ -68,6 +71,8 @@ label {
     margin-bottom: 30px;
 }
 
+
+
 /* Image display */
 
 .ekko-lightbox-nav-overlay span {
@@ -85,6 +90,28 @@ label {
     -o-transition: border .2s ease-in-out;
     transition: border .2s ease-in-out;
 }
+
+/* Forms */
+
+.fieldWrapper p {
+    display: inline;
+    margin-left: 10px;
+    padding-bottom: 5px;
+}
+
+#id_clear {
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.fieldWrapper img {
+    margin-bottom: 20px;
+}
+
+.row.fieldWrapper h3 {
+    margin-left: 15px;
+}
+
 
 
  /* Footer */
