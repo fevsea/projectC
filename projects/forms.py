@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from tinymce.widgets import TinyMCE
-from datetimewidget.widgets import DateTimeWidget
 
 from projectC.settings import TINYMCE_DEFAULT_CONFIG
 
@@ -38,3 +37,4 @@ class BlogForm(forms.Form):
     content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 40}))
     image = forms.ImageField(required=False)
     clear = forms.BooleanField(required=False)
+    pub_date = forms.DateTimeField(required=False, localize=True)

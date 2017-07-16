@@ -42,14 +42,6 @@ def IndexView(request, page=1):
     return render(request, 'projects/index.html', {'projects': projects})
 
 
-def DetailView(request, pk, tab='detail'):
-
-    if not tab in ['detail', 'instructions', 'blog']:
-        raise Http404
-    p = get_object_or_404(Project, pk=pk)
-
-    c = {'project': p, 'tab': tab}
-    return render(request, 'projects/projectView.html', c)
 
 def Organizations(request, page=1):
     """
@@ -166,46 +158,3 @@ def editSteep(request, pk, steep=None):
 
     return render(request, 'projects/editSteep.html', {'form': form, 'pk':pk})
 
-def editBlog(request, pk, entry=None):
-    e=None
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = BlogForm(request.POST, request.FILES)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            p = get_object_or_404(Project, pk=pk)
-            s = None
-            if entry is None:
-
-                s = BlogEntry(project=p,
-                            content=form.cleaned_data['content'],
-                            title=form.cleaned_data['title'],
-                            image=form.cleaned_data['image'],
-                            )
-            else:
-                s = p.blogentry_set.get(pk=entry)
-                s.content = form.cleaned_data['content']
-                s.title = form.cleaned_data['title']
-                if form.cleaned_data['image'] is not None:
-                    s.image = form.cleaned_data['image']
-            if form.cleaned_data['clear']:
-                s.image = None
-            s.save()
-
-            # redirect to a new URL:
-            return HttpResponseRedirect(reverse("projects:blog", kwargs={'pk': p.pk}))
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        if entry is not None:
-            p = get_object_or_404(Project, pk=pk)
-            e = p.blogentry_set.get(pk=entry)
-
-            data = {'content': e.content, 'title': e.title}
-            form = BlogForm(data)
-        else:
-            form = BlogForm
-
-    return render(request, 'projects/editBlog.html', {'form': form, 'pk':pk, 'image':e})

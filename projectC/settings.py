@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'tinymce',
     'django_cleanup',
-    'datetimewidget',
 ]
 
 SITE_ID = 1

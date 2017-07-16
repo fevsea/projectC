@@ -2,4 +2,3 @@ django==1.11.2
 django-tinymce
 pillow
 django-cleanup
-django-datetime-widget

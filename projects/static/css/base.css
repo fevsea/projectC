@@ -22,6 +22,14 @@ a.btn-default {
     float: right;
 }
 
+form {
+    display: inline;
+}
+form > button.btn-danger {
+    margin-left: 30px;
+    float: right;
+}
+
 /* Edit button on heading */
 div.panel-heading > a.btn-default {
     padding: 4px 10px;
@@ -35,7 +43,7 @@ div.panel-heading > a.btn-default {
 
 .panel-heading > h3 {
     display: inline;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 
@@ -111,7 +119,6 @@ label {
 .row.fieldWrapper h3 {
     margin-left: 15px;
 }
-
 
 
  /* Footer */

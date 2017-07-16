@@ -146,8 +146,6 @@ class BlogEntry(models.Model):
 
 
     def __str__(self):
-        if self.title is None or self.title == "":
-            return str(self.pub_date)
         return self.title
 
     class Meta:
