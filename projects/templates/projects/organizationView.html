@@ -1,0 +1,111 @@
+{% extends 'projects/base.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load static %}
+
+
+{% block title %}
+    {{ "Projects" }} | {{ block.super }}
+{% endblock title %}
+
+
+{% block content %}
+
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{{ organization.name }}
+            <small>Organization</small>
+        </h1>
+    </div>
+</div>
+
+<!-- /.row -->
+<ol class="breadcrumb">
+    <li><a href="{% url 'root' %}">Home</a></li>
+    <li><a href="{% url 'projects:organizations' %}">Organizations</a></li>
+    <li class="active">organization.name</li>
+</ol>
+
+  <div class="row">
+     <div class="panel-body no-collapse col-md-4 ">
+       <img class="img-responsive img-portfolio thumbnail img-fluid" height="300px" src="{{ organization.logo.url }}" alt="">
+     </div>
+     <div class="col-md-6 panel-body">
+      <div class="list-group">
+  <li class="list-group-item">{{ organization.name }}</li>
+  {% if organization.university %}<li class="list-group-item">Uni: {{ organization.university }}</li>{% endif %}
+  {% if organization.website %}
+    <li class="list-group-item">Web: <a href="{{ organization.website }}">{{ organization.website }}</a></li>
+  {% endif %}
+  {% if organization.facebook %}
+    <li class="list-group-item">Face: <a href="//www.facebook.com/{{ organization.facebook }}">{{ organization.facebook }}</a></li>
+  {% endif %}
+  {% if organization.twitter %}
+    <li class="list-group-item">Twitter: <a href="//www.twitter.com/{{ organization.twitter }}">{{ organization.twitter }}</a></li>
+  {% endif %}
+</div>
+     </div>
+   </div>
+
+
+    <!-- TABS -->
+<ul class="nav nav-tabs">
+  <li {% if tab == 'info' %} class="active" {% endif %}>
+      <a {% if not tab == 'info' %} href="{% url 'projects:organizationI' organization.pk %}" {% endif %}>
+          Information
+      </a>
+  </li>
+  <li {% if tab == 'projects' %} class="active" {% endif %}>
+      <a {% if not tab == 'projects' %} href="{% url 'projects:organizationProjects' organization.pk %}" {% endif %}>
+          Projects <span class="badge">{{  project.buildsteep_set.count|default:0 }}</span>
+      </a>
+  </li>
+  <li {% if tab == 'blog' %} class="active" {% endif %}>
+      <a {% if not tab == 'blog' %} href="{% url 'projects:organizationBlog' organization.pk %}" {% endif %}>
+          Blog <span class="badge">{{  project.blogentry_set.count }}</span>
+      </a>
+  </li>
+</ul>
+{% if tab == "info" %}
+
+<!-- 4:3 aspect ratio -->
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe
+  class="embed-responsive-item"
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAzn391cu9b_i2v3_92B5EZrlFLCPZ-a88
+    &q=Space+Needle,Seattle+WA" allowfullscreen>
+</iframe>
+</div>
+
+
+{% elif tab == "projects" %}
+
+  {% static "img/default.png" as default_img %}
+  {% for project in organization.project_set.all %}
+    {% url 'projects:detail' project.pk as url%}
+      <div class="col-sm-6 col-md-4 project2" >
+        <div class="thumbnail">
+          <a href="{{ url }}">
+            <img src="{{ project.thumbnail_url|default_if_none:default_img }}" alt="thumbnail">
+          </a>
+          <div class="caption">
+              <a href="{{ url }}"><h3>{{ project.title|truncatechars:40 }}</h3></a>
+            <p>{{ project.summary }}</p>
+          </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="alert alert-info" role="alert">No projects are available. Yet. ;-)</div>
+  {% endfor %}
+
+{% elif tab == "blog" %}
+
+  <div class="alert alert-info" role="alert">No feed are available. Yet. ;-)</div>
+
+{% endif %}
+
+{% endblock content %}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from projects.models import Project, BuildSteep, Organization, BlogEntry, Resource
+from django.contrib import admin
 
 
 class ChoiceInline(admin.TabularInline):
@@ -10,7 +11,7 @@ class ChoiceInline(admin.TabularInline):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'creation_date')
     fieldsets = [
-        (None, {'fields': ['title', 'summary', 'thumbnail']}),
+        (None, {'fields': ['title', 'summary', 'thumbnail', 'organization']}),
         (_('Content'), {'fields': ['description', 'details']}),
     ]
     inlines = [ChoiceInline]

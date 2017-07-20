@@ -43,18 +43,6 @@ def IndexView(request, page=1):
 
 
 
-def Organizations(request, page=1):
-    """
-       Main page of app
-
-       **Template:**
-
-       :template:`projects/index.html`
-    """
-    organizations = Organization.objects.all().order_by('name')
-
-    return render(request, 'projects/organizations.html', {'organizations': organizations})
-
 def tests(request):
     """
        Used for development convenience.

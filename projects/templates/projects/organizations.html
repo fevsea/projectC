@@ -28,16 +28,16 @@
             <!-- Projects Row -->
             <div class="row">
     {% endif %}
-        {% url 'projects:organization' project.pk as url%}
+        {% url 'projects:organizationI' organization.pk as url%}
             <div class="col-md-4 img-portfolio">
                 <div class="well">
                 <a href="{{ url }}">
                     <img class="img-responsive img-hover " src="{{ organization.logo.url }}" alt="">
                 </a>
                 <h3>
-                    <a href="{{ url }}">{{ organization.university }}</a>
+                    <a href="{{ url }}">{{ organization.name }}</a>
                 </h3>
-                <p>{{ organization.name }}</p>
+                <p>{{ organization.university }}</p>
 
                 </div>
             </div>

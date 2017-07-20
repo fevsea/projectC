@@ -46,6 +46,19 @@ div.panel-heading > a.btn-default {
     margin-right: 10px;
 }
 
+.project2 {
+    margin: 20px 0px 0px 0px;
+    padding: 10px;
+}
+
+.project2 > .thumbnail {
+    min-height: 320px
+}
+
+.alert {
+    margin: 15px;
+}
+
 
 
 .tab-pane {
@@ -140,6 +153,15 @@ footer .footer-below {
     background-color: #069;
     margin-bottom: 0;
 }
+
+
+/* OTHERS */
+
+#map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
 
 
 /* TESTS */

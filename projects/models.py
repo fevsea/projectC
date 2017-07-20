@@ -7,7 +7,8 @@ from django.core.files.base import ContentFile
 from django.utils.timezone import now
 from tinymce import models as tinymce_models
 from django.utils.translation import ugettext_lazy as _
-
+from django.db import models
+from django_google_maps import fields as map_fields
 
 
 class Project(models.Model):
@@ -23,6 +24,7 @@ class Project(models.Model):
     update_date = models.DateTimeField(_('last update date'), auto_now=True)
     thumbnail = models.ImageField(upload_to='projects/thumbnail/', blank=True, null=True)
     mainProject = models.ForeignKey('Project', on_delete=models.CASCADE, blank=True, null=True)
+    organization = models.ForeignKey('Organization', on_delete=models.CASCADE)
 
     @property
     def thumbnail_url(self):
@@ -70,7 +72,9 @@ class Organization(models.Model):
     twitter = models.CharField(max_length=128, blank=True, null=True)
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     update_date = models.DateTimeField(_('last update date'), auto_now=True)
-    logo = models.ImageField(upload_to='projects/organization/', blank=True, null=True)
+    logo = models.ImageField(upload_to='projects/organization/')
+    geolocation = map_fields.GeoLocationField(max_length=100, blank=True, null=True)
+
 
 
     def __str__(self):
