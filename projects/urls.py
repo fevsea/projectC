@@ -37,9 +37,9 @@ urlpatterns = [
     # ex: ~/1/edit/
     url(r'^(?P<pk>[0-9]+)/edit/$', views.edit, name='edit'),
     # ex: ~/1/edit/instruction/
-    url(r'^(?P<pk>[0-9]+)/edit/steep/$', views.editSteep, name='addSteep'),
+    url(r'^(?P<pk>[0-9]+)/edit/steep/$', projectViews.editSteep, name='addSteep'),
     # ex: ~/1/edit/instruction/2/
-    url(r'^(?P<pk>[0-9]+)/edit/steep/(?P<steep>[0-9]+)/$', views.editSteep, name='editSteep'),
+    url(r'^(?P<pk>[0-9]+)/edit/steep/(?P<steep>[0-9]+)/$', projectViews.editSteep, name='editSteep'),
     # ex: ~/create
     url(r'^create/$', views.edit, name='create'),
 

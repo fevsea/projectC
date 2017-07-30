@@ -46,6 +46,10 @@ div.panel-heading > a.btn-default {
     margin-right: 10px;
 }
 
+#info .panel {
+    margin-top: 40px;
+}
+
 .project2 {
     margin: 20px 0px 0px 0px;
     padding: 10px;
@@ -155,14 +159,18 @@ footer .footer-below {
 }
 
 
-/* OTHERS */
+/* MAP */
 
-#map-canvas {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
+#map {
+    height: 500px;
+    margin-top: 40px;
+}
 
+
+/* SMALL */
+.ieee {
+    color: #069;
+}
 
 /* TESTS */
 

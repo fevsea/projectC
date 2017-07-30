@@ -8,7 +8,6 @@ from django.utils.timezone import now
 from tinymce import models as tinymce_models
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
-from django_google_maps import fields as map_fields
 
 
 class Project(models.Model):
@@ -66,6 +65,7 @@ class Organization(models.Model):
 
     name = models.CharField(verbose_name=_('name'), max_length=128)
     university = models.CharField(max_length=64, blank=True, null=True)
+    description = tinymce_models.HTMLField(_('description'), blank=True, null=True)
     ieee = models.BooleanField()
     website = models.CharField(max_length=256, blank=True, null=True)
     facebook = models.CharField(max_length=128, blank=True, null=True)
@@ -73,7 +73,7 @@ class Organization(models.Model):
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     update_date = models.DateTimeField(_('last update date'), auto_now=True)
     logo = models.ImageField(upload_to='projects/organization/')
-    geolocation = map_fields.GeoLocationField(max_length=100, blank=True, null=True)
+    geolocation = models.CharField(verbose_name=_('google maps string'), max_length=512, blank=True, null=True)
 
 
 

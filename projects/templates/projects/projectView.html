@@ -61,6 +61,11 @@
         <h3 class="panel-title">Description</h3>
       </div>
       <div class="panel-body">
+        {% if project.thumbnail %}
+        <a class="pop col-md-4" href="{{ project.thumbnail.url }}" data-toggle="lightbox">
+          <img class="img-responsive image-resource thumbnail img-fluid" height="300px" src="{{ project.thumbnail.url }}" alt="">
+        </a>
+        {% endif %}
         {{ project.description|safe }}
       </div>
     </div>

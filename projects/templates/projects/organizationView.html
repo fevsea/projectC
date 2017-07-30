@@ -15,7 +15,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">{{ organization.name }}
-            <small>Organization</small>
+            <small {{ organization.ieee|yesno:'class="ieee",'|safe }}>Organization</small>
         </h1>
     </div>
 </div>
@@ -24,7 +24,7 @@
 <ol class="breadcrumb">
     <li><a href="{% url 'root' %}">Home</a></li>
     <li><a href="{% url 'projects:organizations' %}">Organizations</a></li>
-    <li class="active">organization.name</li>
+    <li class="active">Detail</li>
 </ol>
 
   <div class="row">
@@ -68,19 +68,53 @@
   </li>
 </ul>
 {% if tab == "info" %}
+<div id="info">
+  {% if not oreganization.description %}
+      <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Description</h3>
+      </div>
+      <div class="panel-body no-collapse">
+        {{ organization.description|safe }}
+        {% lorem 5 %}
+      </div>
+      </div>
+  {% endif %}
 
-<!-- 4:3 aspect ratio -->
-<div class="embed-responsive embed-responsive-4by3">
-  <iframe
-  class="embed-responsive-item"
-  width="600"
-  height="450"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAzn391cu9b_i2v3_92B5EZrlFLCPZ-a88
-    &q=Space+Needle,Seattle+WA" allowfullscreen>
-</iframe>
+  {% if organization.geolocation %}
+    <div class="embed-responsive embed-responsive-4by3" style="height: 100%;">
+        <div id="map"></div>
+        <script>
+         function initMap() {
+            var address = '{{ organization.geolocation }}';
+            var geocoder = new google.maps.Geocoder();
+            position = {lat: -25.363, lng: 131.044};
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 14,
+              center: position
+            });
+
+            geocoder.geocode({'address': address}, function(results, status) {
+              if (status === 'OK') {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location
+                  {% if organization.website %} , url : '{{ organization.website }}' {% endif %}
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+
+          }
+
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzn391cu9b_i2v3_92B5EZrlFLCPZ-a88&callback=initMap"
+        async defer></script>
+    </div>
+  {% endif %}
 </div>
-
 
 {% elif tab == "projects" %}
 
